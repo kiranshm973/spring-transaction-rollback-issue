@@ -18,12 +18,21 @@ public class UserServiceImpl implements UserService {
         try {
             userDAO.create(name);
         } catch(Exception ex) {
-            throw new NoRollbackException(ex.getMessage());
+            if (ex.getMessage().equals("dont rollback")) {
+                throw new NoRollbackException(ex.getMessage());
+            }
+            throw ex;
         }
     }
 
     @Override
     public List<User> findAllUsers() {
         return userDAO.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void flushAndClear() {
+        userDAO.flushAndClear();
     }
 }

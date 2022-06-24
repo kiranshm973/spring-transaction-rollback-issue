@@ -7,4 +7,6 @@ public interface UserService {
     void createUser(String name);
 
     List<User> findAllUsers();
+
+    void flushAndClear();
 }

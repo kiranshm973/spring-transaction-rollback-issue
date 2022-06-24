@@ -7,4 +7,6 @@ public interface UserDAO {
     void create(String name);
 
     List<User> findAll();
+
+    void flushAndClear();
 }

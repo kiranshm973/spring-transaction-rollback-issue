@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = { UserServiceImpl.class, UserHibernateDAO.class, JPAConfiguration.class})
 public class UserServiceTest {
@@ -21,6 +24,9 @@ public class UserServiceTest {
         } catch (NoRollbackException ex) {
             // ignore
         }
+
+        userService.flushAndClear();
+
         Assert.assertFalse(userService.findAllUsers().isEmpty());
     }
 }

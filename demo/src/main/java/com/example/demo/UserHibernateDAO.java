@@ -20,12 +20,18 @@ public class UserHibernateDAO implements UserDAO {
 
         entityManager.persist(user);
 
-        throw new RuntimeException("test rollback");
+        throw new RuntimeException("dont rollback");
     }
 
     @Override
     public List<User> findAll() {
         return entityManager.createQuery("from User")
                 .getResultList();
+    }
+
+    @Override
+    public void flushAndClear() {
+        entityManager.flush();
+        entityManager.clear();
     }
 }
